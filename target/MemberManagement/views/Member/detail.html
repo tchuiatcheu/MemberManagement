@@ -1,0 +1,95 @@
+<header ng-switch on="$location.path().indexOf('/Members/new') > -1">
+    <h3 ng-switch-when="true">Create a new Member</h3>
+    <h3 ng-switch-when="false">View or edit Member</h3>
+</header>
+<form id="MemberForm" name="MemberForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.firstName.$invalid}">
+        <label for="firstName" class="col-sm-2 control-label">First Name</label>
+        <div id="firstNameControls" class="col-sm-10">
+            <input id="firstName" name="firstName" type="text"class="form-control" ng-model="member.firstName" placeholder="Enter the Member First Name"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.lastName.$invalid}">
+        <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+        <div id="lastNameControls" class="col-sm-10">
+            <input id="lastName" name="lastName" type="text"class="form-control" ng-model="member.lastName" placeholder="Enter the Member Last Name"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.email.$invalid}">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div id="emailControls" class="col-sm-10">
+            <input id="email" name="email" type="text"class="form-control" ng-model="member.email" placeholder="Enter the Member Email"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.phone.$invalid}">
+        <label for="phone" class="col-sm-2 control-label">Phone</label>
+        <div id="phoneControls" class="col-sm-10">
+            <input id="phone" name="phone" type="number"class="form-control" ng-model="member.phone" placeholder="Enter the Member Phone"></input>
+            <span class="help-block error" ng-show="MemberForm.phone.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.city.$invalid}">
+        <label for="city" class="col-sm-2 control-label">City</label>
+        <div id="cityControls" class="col-sm-10">
+            <input id="city" name="city" type="text"class="form-control" ng-model="member.city" placeholder="Enter the Member City"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.birthDay.$invalid}">
+        <label for="birthDay" class="col-sm-2 control-label">Birth Day</label>
+        <div id="birthDayControls" class="col-sm-10">
+            <date id="birthDay" name="birthDay" ng-model="member.birthDay" placeholder="Enter the Member Birth Day"></date>
+            <span class="help-block error" ng-show="MemberForm.birthDay.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.occupation.$invalid}">
+        <label for="occupation" class="col-sm-2 control-label">Occupation</label>
+        <div id="occupationControls" class="col-sm-10">
+            <input id="occupation" name="occupation" type="text"class="form-control" ng-model="member.occupation" placeholder="Enter the Member Occupation"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.subscription.$invalid}">
+        <label for="subscription" class="col-sm-2 control-label">Subscription</label>
+        <div id="subscriptionControls" class="col-sm-10">
+            <input id="subscription" name="subscription" type="number"class="form-control" ng-model="member.subscription" placeholder="Enter the Member Subscription"></input>
+            <span class="help-block error" ng-show="MemberForm.subscription.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.invitedBy.$invalid}">
+        <label for="invitedBy" class="col-sm-2 control-label">Invited By</label>
+        <div id="invitedByControls" class="col-sm-10">
+        <select id="invitedBy" name="invitedBy" class="form-control" ng-model="invitedBySelection" ng-options="i.text for i in invitedBySelectionList"  >
+            <option value="">Choose a Invited By</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': MemberForm.notes.$invalid}">
+        <label for="notes" class="col-sm-2 control-label">Notes</label>
+        <div id="notesControls" class="col-sm-10">
+            <textarea id="notes" name="notes" type="text" ng-maxlength="10000"class="form-control" ng-model="member.notes" placeholder="Enter the Member Notes"></textarea>
+            <span class="help-block error" ng-show="MemberForm.notes.$error.maxlength">maximum length is 10000</span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveMember" name="saveMember" class="btn btn-primary" ng-disabled="isClean() || MemberForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteMember" name="deleteMember" class="btn btn-danger" ng-show="member.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
